@@ -76,7 +76,7 @@ class _SumPageState extends State<SumPage> {
                       valueDouble = 0;
                     } finally {
                       this.setState(() {
-                        _firstValue = valueDouble;
+                        _secondValue = valueDouble;
                         _sumTotal = _firstValue + _secondValue;
                       });
                     }
