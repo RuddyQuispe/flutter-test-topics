@@ -41,11 +41,17 @@ class _SumPageState extends State<SumPage> {
                   cursorColor: Colors.greenAccent,
                   decoration: InputDecoration(hintText: "Ingresa un valor", border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
                   onChanged: (value) {
-                    if (value == "") value = "0";
-                    this.setState(() {
-                      _firstValue = double.parse(value);
-                      _sumTotal = _firstValue + _secondValue;
-                    });
+                    double valueDouble = 0;
+                    try {
+                      valueDouble = double.parse(value);
+                    } on FormatException {
+                      valueDouble = 0;
+                    } finally {
+                      this.setState(() {
+                        _firstValue = valueDouble;
+                        _sumTotal = _firstValue + _secondValue;
+                      });
+                    }
                   },
                 ),
               ),
@@ -63,11 +69,17 @@ class _SumPageState extends State<SumPage> {
                   cursorColor: Colors.greenAccent,
                   decoration: InputDecoration(hintText: "Ingresa otro valor", border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
                   onChanged: (value) {
-                    if (value == "") value = "0";
-                    this.setState(() {
-                      _secondValue = double.parse(value);
-                      _sumTotal = _firstValue + _secondValue;
-                    });
+                    double valueDouble = 0;
+                    try {
+                      valueDouble = double.parse(value);
+                    } on FormatException {
+                      valueDouble = 0;
+                    } finally {
+                      this.setState(() {
+                        _firstValue = valueDouble;
+                        _sumTotal = _firstValue + _secondValue;
+                      });
+                    }
                   },
                 ),
               ),
