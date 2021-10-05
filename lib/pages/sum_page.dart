@@ -8,6 +8,12 @@ class SumPage extends StatefulWidget {
 }
 
 class _SumPageState extends State<SumPage> {
+  final _controllerFirstTextField = TextEditingController();
+  final _controllerSecondTextField = TextEditingController();
+  double _sumTotal = 0;
+  double _firstValue = 0;
+  double _secondValue = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +24,65 @@ class _SumPageState extends State<SumPage> {
       ),
       body: Center(
         child: Container(
-          child: Text('Hello World'),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Obtiene la suma de 2 numeros",
+                style: TextStyle(fontSize: 15.0),
+              ),
+              Divider(height: 10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: _controllerFirstTextField,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                  cursorColor: Colors.greenAccent,
+                  decoration: InputDecoration(hintText: "Ingresa un valor", border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  onChanged: (value) {
+                    if (value == "") value = "0";
+                    this.setState(() {
+                      _firstValue = double.parse(value);
+                      _sumTotal = _firstValue + _secondValue;
+                    });
+                  },
+                ),
+              ),
+              Divider(height: 5),
+              Text(
+                "+",
+                style: TextStyle(fontSize: 15.0),
+              ),
+              Divider(height: 5),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: _controllerSecondTextField,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                  cursorColor: Colors.greenAccent,
+                  decoration: InputDecoration(hintText: "Ingresa otro valor", border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
+                  onChanged: (value) {
+                    if (value == "") value = "0";
+                    this.setState(() {
+                      _secondValue = double.parse(value);
+                      _sumTotal = _firstValue + _secondValue;
+                    });
+                  },
+                ),
+              ),
+              Divider(height: 5),
+              Text(
+                "=",
+                style: TextStyle(fontSize: 15.0),
+              ),
+              Divider(height: 5),
+              Text(
+                _sumTotal.toString(),
+                style: TextStyle(fontSize: 20.0),
+              ),
+            ],
+          ),
         ),
       ),
     );
