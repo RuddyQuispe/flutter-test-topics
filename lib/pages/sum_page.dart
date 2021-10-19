@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 class SumPage extends StatefulWidget {
   SumPage({Key? key}) : super(key: key);
@@ -47,9 +48,11 @@ class _SumPageState extends State<SumPage> {
                     } on FormatException {
                       valueDouble = 0;
                     } finally {
+                      // ignore: unnecessary_this
                       this.setState(() {
                         _firstValue = valueDouble;
-                        _sumTotal = _firstValue + _secondValue;
+                        // dont update value total sum
+                        // _sumTotal = _firstValue + _secondValue;
                       });
                     }
                   },
@@ -77,12 +80,20 @@ class _SumPageState extends State<SumPage> {
                     } finally {
                       this.setState(() {
                         _secondValue = valueDouble;
-                        _sumTotal = _firstValue + _secondValue;
+                        // dont update sume total
+                        // _sumTotal = _firstValue + _secondValue;
                       });
                     }
                   },
                 ),
               ),
+              Divider(height: 5),
+              ElevatedButton(
+                  child: Text(
+                    "Click Here",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: _sum),
               Divider(height: 5),
               Text(
                 "=",
@@ -98,5 +109,32 @@ class _SumPageState extends State<SumPage> {
         ),
       ),
     );
+  }
+
+  void _sum() async {
+    var dio = Dio();
+    try {
+      Response response = await dio.post('http://192.168.100.4:5000/sum_web', data: {'first_value': this._firstValue.toString(), 'second_value': this._secondValue.toString()});
+      Map data = response.data;
+      print(data);
+      this.setState(() {
+        _sumTotal = double.parse(data['result']);
+      });
+    } catch (e) {
+      print("Error with Post Method \n$e");
+      // return {"error": "ERROR_WITH_POST_METHOD"};
+    }
+
+    // var client = http.Client();
+    // try {
+
+    //   print('Response status: ${response.statusCode}');
+    //   print('Response body: ${response.body}');
+    //   // var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    //   // var uri = Uri.parse(decodedResponse['uri'] as String);
+    //   print(await client.get(Uri.parse('http://192.168.100.4:5000/sum_web')));
+    // } finally {
+    //   client.close();
+    // }
   }
 }
