@@ -6,6 +6,8 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
+_This project was use sqlite3 for storage accounts_
+_para revision del codigo de guardado, visit_e el #archivo sign_up_page.dart en el metodo \_registerAccount() LINE:138_
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
