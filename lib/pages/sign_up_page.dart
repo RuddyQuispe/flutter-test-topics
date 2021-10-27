@@ -44,9 +44,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   cursorColor: Colors.greenAccent,
                   decoration: InputDecoration(hintText: "ID", border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
                   onChanged: (value) {
-                    setState(() {
-                      _user.id = int.parse(value);
-                    });
+                    if (value == "") {
+                      setState(() {
+                        _user.id = 0;
+                      });
+                    } else {
+                      setState(() {
+                        _user.id = int.parse(value);
+                      });
+                    }
                   },
                 ),
               ),

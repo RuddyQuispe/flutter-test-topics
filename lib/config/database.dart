@@ -29,4 +29,18 @@ class DB {
             address: usersMap[index]['address'],
             password: usersMap[index]['password']));
   }
+
+  static Future<List<User>> userByID(String email) async {
+    Database database = await _openDB();
+    final List<Map<String, dynamic>> usersMap = await database.query("user", where: "email='$email'");
+    return List.generate(
+        usersMap.length,
+        (index) => User(
+            id: usersMap[index]['id'],
+            name: usersMap[index]['name'],
+            email: usersMap[index]['email'],
+            phone: usersMap[index]['phone'],
+            address: usersMap[index]['address'],
+            password: usersMap[index]['password']));
+  }
 }
